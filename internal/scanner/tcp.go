@@ -26,7 +26,9 @@ func ScanTCPPort(host string, port int, timeout time.Duration) bool {
 	if err != nil {
 		return false
 	}
-	defer conn.Close()
+	defer func(conn net.Conn) {
+		_ = conn.Close()
+	}(conn)
 	return true
 }
 
@@ -85,6 +87,10 @@ func IsHostAlive(host string) bool {
 	return pingHost(host)
 }
 
+// pingHost attempts to verify if a host is alive using ICMP ping.
+// It takes a host string parameter (hostname or IP address) and returns
+// a boolean indicating whether the host responded to the ping request.
+// Note: This may require elevated privileges on some systems.
 func pingHost(host string) bool {
 	addr, err := net.ResolveIPAddr("ip4:icmp", host)
 	if err != nil {
@@ -95,6 +101,8 @@ func pingHost(host string) bool {
 	if err != nil {
 		return false
 	}
-	defer conn.Close()
+	defer func(conn *net.IPConn) {
+		_ = conn.Close()
+	}(conn)
 	return true
 }

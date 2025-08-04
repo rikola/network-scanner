@@ -58,7 +58,7 @@ scanner --host example.com --ports 1-100 --timeout 5s --concurrent 50 --verbose
 
 - `--host`: Target host to scan (required)
 - `--ports`, `-p`: Ports to scan (e.g., '80,443' or '1-1000') (required)
-- `--timeout`, `-t`: Timeout for each port scan (default: 2s)
+- `--timeout`, `-t`: Timeout for each port scan (default: 2 s)
 - `--concurrent`, `-c`: Number of concurrent scans (default: 20)
 - `--verbose`, `-v`: Enable verbose output
 

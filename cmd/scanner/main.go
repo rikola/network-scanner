@@ -45,13 +45,13 @@ Examples:
 		// Validate required flags
 		if host == "" {
 			fmt.Println("Error: host is required")
-			cmd.Help()
+			_ = cmd.Help()
 			os.Exit(1)
 		}
 
 		if portRangeStr == "" {
 			fmt.Println("Error: ports is required")
-			cmd.Help()
+			_ = cmd.Help()
 			os.Exit(1)
 		}
 
@@ -69,7 +69,7 @@ Examples:
 			os.Exit(1)
 		}
 
-		// Check if host is alive
+		// Check if the host is alive
 		if verbose {
 			fmt.Printf("Checking if host %s is alive...\n", host)
 		}
@@ -156,7 +156,7 @@ func parsePorts(portsFlag string) ([]int, error) {
 			return nil, fmt.Errorf("port numbers must be between 1 and 65535")
 		}
 
-		// Just return the start and end for range scanning
+		// Return the start and end for range scanning
 		return []int{start, end}, nil
 	}
 
@@ -192,32 +192,13 @@ func init() {
 	rootCmd.Flags().BoolVarP(&verbose, "verbose", "v", false, "Enable verbose output")
 
 	// Mark required flags
-	rootCmd.MarkFlagRequired("host")
-	rootCmd.MarkFlagRequired("ports")
+	_ = rootCmd.MarkFlagRequired("host")
+	_ = rootCmd.MarkFlagRequired("ports")
 }
 
 func main() {
 	if err := rootCmd.Execute(); err != nil {
 		fmt.Println(err)
 		os.Exit(1)
-	}
-}
-
-func mainold() {
-	host := "example.com"
-
-	// Check if host is alive
-	if scanner.IsHostAlive(host) {
-		fmt.Printf("Host %s is up\n", host)
-
-		if scanner.ScanTCPPort(host, 80, 2*time.Second) {
-			fmt.Println("Port 80 is open")
-		}
-
-		// Scan port range
-		openPorts := scanner.ScanPortRange(host, 1, 1024)
-		fmt.Printf("Open ports: %v\n", openPorts)
-	} else {
-		fmt.Printf("Host %s appears to be down\n", host)
 	}
 }

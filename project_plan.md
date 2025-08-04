@@ -1,4 +1,5 @@
-# Network Scanner Tool - Complete Project Guide
+# Network Scanner Tool
+
 
 ## Project Overview
 
@@ -118,7 +119,7 @@ func SYNScan(host string, port int) (bool, error) {
 
 ### Performance Targets
 - 10,000+ ports per minute with proper concurrency
-- Configurable thread count (default: 100-500)
+- Configurable thread count (default: 100–500)
 - Memory usage under 50MB for large scans
 - Graceful handling of network congestion
 
@@ -156,7 +157,7 @@ func DetectService(host string, port int) (*Service, error)
 
 #### 3. Banner Database
 ```go
-// Create signature database for service identification
+// Create a signature database for service identification
 var ServiceSignatures = map[string][]ServiceMatch{
     "http": {
         {Regex: `Server: Apache/(\d+\.\d+\.\d+)`, Service: "Apache", Version: "$1"},
@@ -297,7 +298,7 @@ By the end of this project, your scanner should:
 - ✅ Discover live hosts on a network segment
 - ✅ Accurately identify open ports and services
 - ✅ Perform banner grabbing and version detection
-- ✅ Complete subnet scans in reasonable time
+- ✅ Complete subnet scans in a reasonable time
 - ✅ Generate useful reports for further analysis
 - ✅ Handle various network conditions gracefully
 
