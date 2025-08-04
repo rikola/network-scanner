@@ -1,0 +1,26 @@
+version: "2"
+run:
+  # Timeout for analysis, e.g., 30s, 5m.
+  timeout: 5m
+  # Exit code when at least one issue was found.
+  issues-exit-code: 2
+  # Include test files or not.
+  tests: true
+  modules-download-mode: readonly
+
+# Output configuration options
+output:
+  formats:
+    text:
+      print-issued-lines: true
+      print-linter-name: true
+      colors: true
+
+# Configure default linters
+# https://golangci-lint.run/usage/linters/#enabled-by-default
+linters:
+  default: standard
+
+issues:
+  # Maximum count of issues with the same text.
+  max-same-issues: 3
