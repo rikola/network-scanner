@@ -1,4 +1,4 @@
-version: '3.8'
+name: 'port-scan'
 
 services:
   scanner:
@@ -13,7 +13,7 @@ services:
     networks:
       - scanner-net
     # Pass arguments to the scanner
-    command: ["--host", "example.com", "--ports", "80,443"]
+    command: ["--host", "192.168.1.1", "--ports", "1-10000"]
 
 networks:
   scanner-net:

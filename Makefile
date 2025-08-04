@@ -43,7 +43,7 @@ clean:
 # Run tests
 test:
 	@echo "Running tests..."
-	$(GOTEST) -v ./...
+	$(GOTEST) -v -race ./...
 
 # Run linter
 lint:
