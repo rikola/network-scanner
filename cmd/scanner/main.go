@@ -11,6 +11,9 @@ import (
 	"network-scanner/internal/scanner"
 )
 
+// version is set during build using ldflags
+var version = "dev"
+
 // Target usage examples:
 // ./scanner -host 192.168.1.1 -ports 1-1000
 // ./scanner -host 192.168.1.1 -ports 22,80,443,8080
@@ -37,6 +40,7 @@ Examples:
   scanner --host 192.168.1.1 --ports 1-1000
   scanner --host example.com --ports 22,80,443,8080
   scanner --host 192.168.1.1 --ports 1-100 --timeout 5s --concurrent 50`,
+	Version: version,
 	Run: func(cmd *cobra.Command, args []string) {
 		// Validate required flags
 		if host == "" {

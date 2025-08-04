@@ -1,0 +1,91 @@
+# GoReleaser configuration for Network Scanner
+
+# Project details
+project_name: network-scanner
+
+# Build settings
+before:
+  hooks:
+    - go mod tidy
+
+builds:
+  - main: ./cmd/scanner
+    id: scanner
+    binary: scanner
+    env:
+      - CGO_ENABLED=0
+    goos:
+      - linux
+      - windows
+      - darwin
+    goarch:
+      - amd64
+      - arm64
+    ignore:
+      - goos: windows
+        goarch: arm64
+    ldflags:
+      - -s -w -X main.version={{.Version}}
+
+# Archive settings
+archives:
+  - id: scanner
+    name_template: >-
+      {{ .ProjectName }}_{{ .Version }}_
+      {{- title .Os }}_{{ .Arch }}{{ if .Arm }}v{{ .Arm }}{{ end }}
+    format_overrides:
+      - goos: windows
+        format: zip
+    files:
+      - LICENSE
+      - README.md
+
+# Checksum settings
+checksum:
+  name_template: "checksums.txt"
+
+# Snapshot settings
+snapshot:
+  name_template: "{{ .Tag }}-next"
+
+# Changelog settings
+changelog:
+  sort: asc
+  filters:
+    exclude:
+      - '^docs:'
+      - '^test:'
+      - '^chore:'
+      - Merge pull request
+      - Merge branch
+
+# Release settings
+release:
+  github:
+    owner: your-username
+    name: network-scanner
+  draft: true
+  prerelease: auto
+
+# Homebrew settings (uncomment when ready)
+#brews:
+#  - name: network-scanner
+#    homepage: "https://github.com/your-username/network-scanner"
+#    description: "A comprehensive network scanner tool built in Go"
+#    repository:
+#      owner: your-username
+#      name: homebrew-tap
+#      branch: main
+#      token: "{{ .Env.GITHUB_TOKEN }}"
+
+# Docker settings (uncomment when ready)
+#dockers:
+#  - image_templates:
+#    - "your-username/network-scanner:{{ .Version }}"
+#    - "your-username/network-scanner:latest"
+#    dockerfile: Dockerfile
+#    build_flag_templates:
+#    - "--label=org.opencontainers.image.created={{.Date}}"
+#    - "--label=org.opencontainers.image.title={{.ProjectName}}"
+#    - "--label=org.opencontainers.image.revision={{.FullCommit}}"
+#    - "--label=org.opencontainers.image.version={{.Version}}"
