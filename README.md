@@ -2,6 +2,8 @@
 
 A comprehensive network scanner tool built in Go that can discover hosts, scan ports, and identify services.
 
+[![Build](https://github.com/rikola/network-scanner/actions/workflows/build.yml/badge.svg)](https://github.com/rikola/network-scanner/actions/workflows/build.yml)
+
 ## Features
 
 - TCP connect scanning for port discovery
